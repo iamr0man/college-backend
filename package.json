@@ -1,0 +1,35 @@
+{
+  "name": "kisit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamr0man/kisit.git"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-compress": "^4.0.1",
+    "koa-dec-router": "0.0.4",
+    "koa-helmet": "^5.2.0",
+    "koa-morgan": "^1.0.1",
+    "koa-no-cache": "^2.0.0",
+    "koa-passport": "^4.1.3",
+    "koa-respond": "^2.1.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.2.4",
+    "sqlite3": "^5.0.0"
+  },
+  "author": "Roman Korniienko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamr0man/kisit/issues"
+  },
+  "homepage": "https://github.com/iamr0man/kisit#readme"
+}
