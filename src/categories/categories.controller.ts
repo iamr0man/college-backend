@@ -2,6 +2,7 @@ import {Controller, Get, Post, Body, Put, Param, Delete, Query} from '@nestjs/co
 import { CategoriesService } from './categories.service';
 import { CategoryDto } from './dto/category.dto';
 import {Category} from "./entities/category.entity";
+import {DeleteResult} from "typeorm";
 
 @Controller('categories')
 export class CategoriesController {
@@ -13,22 +14,22 @@ export class CategoriesController {
   }
 
   @Get('findByFilter')
-  findByFilter(@Query() query) {
+  findByFilter(@Query() query): Promise<Category[]> {
     return this.categoriesService.findByFilter(query);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<Category> {
     return this.categoriesService.findOne(+id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() categoryDto: CategoryDto) {
+  update(@Param('id') id: string, @Body() categoryDto: CategoryDto): Promise<Category> {
     return this.categoriesService.update(+id, new Category(categoryDto));
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.categoriesService.remove(+id);
   }
 }

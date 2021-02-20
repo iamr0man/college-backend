@@ -3,7 +3,7 @@ import { CategoryDto } from './dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Category } from './entities/category.entity'
-import {Repository} from "typeorm";
+import {DeleteResult, Repository} from "typeorm";
 
 @Injectable()
 export class CategoriesService {
@@ -16,7 +16,7 @@ export class CategoriesService {
     return this.categoryRepository.save(category)
   }
 
-  findByFilter(query) {
+  findByFilter(query): Promise<Category[]> {
     let params = {}
     if (query.ParentId) {
       params = { ParentId: query.ParentId }
@@ -26,7 +26,7 @@ export class CategoriesService {
     });
   }
 
-  findOne(id: number) {
+  findOne(id: number): Promise<Category> {
     const category = this.categoryRepository.findOne(id);
     if (!category) {
       throw new BadRequestException('Category Not Found')
@@ -40,7 +40,7 @@ export class CategoriesService {
     return await this.categoryRepository.save(newCategory);
   }
 
-  remove(id: number) {
+  remove(id: number): Promise<DeleteResult> {
     return this.categoryRepository.delete(id);
   }
 }
