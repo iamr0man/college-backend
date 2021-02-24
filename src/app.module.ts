@@ -5,11 +5,13 @@ import { CategoriesModule } from './categories/categories.module';
 import { ConfigModule } from './config';
 
 import { ConfigService } from './config';
+import { EmployeesModule } from './employees/employees.module';
 
 @Module({
   imports: [
     CategoriesModule,
     ConfigModule,
+    EmployeesModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
