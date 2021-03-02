@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import { EmployeeDto } from './dto/employee.dto';
+import {DeleteResult, Repository, UpdateResult} from "typeorm";
 import {Employee} from "./entities/employee.entity";
 
 @Injectable()
@@ -14,19 +13,29 @@ export class EmployeesService {
     return this.employeeRepository.save(employee);
   }
 
-  findAll() {
-    return `This action returns all employees`;
+  findByFilter(query): Promise<Array<Employee>> {
+    let params = {}
+    if (query.Department) {
+      params = { Department: query.Department }
+    }
+    return this.employeeRepository.find({
+      where: params
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} employee`;
+    const employee = this.employeeRepository.findOne(id);
+    if (!employee) {
+      throw new BadRequestException('Category Not Found')
+    }
+    return employee
   }
 
-  update(id: number, employeeDto: EmployeeDto) {
-    return `This action updates a #${id} employee`;
+  update(id: number, newEmployee: Employee): Promise<UpdateResult> {
+    return this.employeeRepository.update(+id, newEmployee);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  remove(id: number): Promise<DeleteResult> {
+    return this.employeeRepository.delete(id);
   }
 }
