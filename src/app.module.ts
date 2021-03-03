@@ -6,12 +6,16 @@ import { ConfigModule } from './config';
 
 import { ConfigService } from './config';
 import { EmployeesModule } from './employees/employees.module';
+import { DepartmentsModule } from './departments/departments.module';
+import { DegreeProgramsModule } from './degree-programs/degree-programs.module';
 
 @Module({
   imports: [
     CategoriesModule,
     ConfigModule,
     EmployeesModule,
+    DepartmentsModule,
+    DegreeProgramsModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -29,7 +33,7 @@ import { EmployeesModule } from './employees/employees.module';
           synchronize: false,
         } as TypeOrmModuleAsyncOptions;
       }
-    }),
+    })
   ]
 })
 export class AppModule {}

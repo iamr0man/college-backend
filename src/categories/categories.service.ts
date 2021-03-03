@@ -1,9 +1,8 @@
-import {BadRequestException, Body, Injectable} from '@nestjs/common';
-import { CategoryDto } from './dto/category.dto';
+import {NotFoundException, Body, Injectable} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Category } from './entities/category.entity'
-import {DeleteResult, Repository} from "typeorm";
+import {DeleteResult, Repository, UpdateResult} from "typeorm";
 
 @Injectable()
 export class CategoriesService {
@@ -26,18 +25,17 @@ export class CategoriesService {
     });
   }
 
-  findOne(id: number): Promise<Category> {
-    const category = this.categoryRepository.findOne(id);
+  async findOne(id: number): Promise<Category> {
+    const category = await this.categoryRepository.findOne(id);
     if (!category) {
-      throw new BadRequestException('Category Not Found')
+      throw new NotFoundException(category, 'Category Not Found')
     }
     return category
   }
 
 
-  async update(id: number, newCategory: Category): Promise<Category> {
-    newCategory.Id = id
-    return await this.categoryRepository.save(newCategory);
+  async update(id: number, category: Category): Promise<UpdateResult> {
+    return await this.categoryRepository.update(+id,category);
   }
 
   remove(id: number): Promise<DeleteResult> {

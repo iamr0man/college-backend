@@ -1,5 +1,6 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm'
 
+import {Department} from "../../departments/entities/department.entity";
 import { EmployeeDto } from '../dto/employee.dto'
 
 @Entity()
@@ -22,8 +23,12 @@ export class Employee {
     @Column()
     Degree: string;
 
-    // @Column()
-    // Department: string;
+    @OneToOne(type => Department)
+    @JoinColumn({ name: 'DepartmentId' })
+    Department: Department;
+
+    @Column()
+    DepartmentId: number;
 
     @Column()
     PhoneNumber: string;

@@ -24,8 +24,14 @@ export class CategoriesController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() categoryDto: CategoryDto): Promise<Category> {
-    return this.categoriesService.update(+id, new Category(categoryDto));
+  async update(@Param('id') id: string, @Body() categoryDto: CategoryDto): Promise<Category> {
+    try {
+      const category = await this.categoriesService.findOne(+id);
+      await this.categoriesService.update(+id, new Category(categoryDto));
+      return category
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   @Delete(':id')

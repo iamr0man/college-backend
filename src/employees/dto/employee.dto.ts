@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import {Column} from "typeorm";
 
 export class EmployeeDto {
     @IsNotEmpty()
@@ -21,7 +22,7 @@ export class EmployeeDto {
     @IsString()
     Degree: string;
 
-    // Department
+    DepartmentId: number | null;
 
     @IsNotEmpty()
     @IsString()
